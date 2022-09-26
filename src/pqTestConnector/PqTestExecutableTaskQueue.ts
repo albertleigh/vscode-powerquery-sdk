@@ -58,7 +58,12 @@ export class PqTestExecutableTaskError extends Error {
         public readonly processArgs: string[],
         public readonly processExit: ProcessExit,
     ) {
-        super(`Failed to execute ${pqTestExeFullPath} ${formatArguments(processArgs)}`);
+        super(
+            processExit.stderr
+                ? processExit.stderr
+                : `Failed to execute ${pqTestExeFullPath} ${formatArguments(processArgs)}`,
+        );
+
         this.processExit = processExit;
     }
 }
